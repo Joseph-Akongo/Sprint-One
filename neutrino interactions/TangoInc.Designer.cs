@@ -101,7 +101,7 @@
             this.deletbutton.Name = "deletbutton";
             this.deletbutton.Size = new System.Drawing.Size(75, 23);
             this.deletbutton.TabIndex = 8;
-            this.deletbutton.Text = "Delet";
+            this.deletbutton.Text = "Delete";
             this.deletbutton.UseVisualStyleBackColor = true;
             this.deletbutton.Click += new System.EventHandler(this.deletbutton_Click);
             // 

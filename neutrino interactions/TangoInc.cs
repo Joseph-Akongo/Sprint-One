@@ -25,7 +25,7 @@ namespace neutrino_interactions
         }
         static int maxArraySize = 24;
         int[] myNumbers = new int[maxArraySize];
-        bool unSorted = true;
+        bool Sorted = true;
         int key;
 
         private void initiliseArray()
@@ -53,12 +53,11 @@ namespace neutrino_interactions
 
         private void inputbox_TextChanged(object sender, EventArgs e)
         {
-       
+
         }
 
         private void findbutton_Click(object sender, EventArgs e)
         {
-            int target = int.Parse(inputbox.Text);
             int minNum = 0;
             int maxNum = myNumbers.Length - 1;
 
@@ -67,7 +66,7 @@ namespace neutrino_interactions
                 int mid = (minNum + maxNum) / 2;
                 if (key == myNumbers[mid])
                 {
-                    ++mid;
+                     ++mid;
                 }
                 else if (key < myNumbers[mid])
                 {
@@ -80,7 +79,7 @@ namespace neutrino_interactions
             }
             for (int x = 0; x < myNumbers.Length; x++)
             {
-                if (myNumbers[x] == target)
+                if (myNumbers[x] == int.Parse(inputbox.Text))
                 {
                     inputbox.Clear();
                     inputbox.Focus();
@@ -193,13 +192,13 @@ namespace neutrino_interactions
             {
                 for (int x = 0; x < myNumbers.Length - 1; x++)
                 {
-                    for (int y = 0; y < myNumbers.Length - x - 1; y++)
+                    for (int y = 0; y < myNumbers.Length - 1; y++)
                     {
-                        if (myNumbers[y] > myNumbers[y] + 1)
+                        if (myNumbers[y] > myNumbers[y + 1])
                         {
-                            int temp = myNumbers[y];
-                            myNumbers[y] = myNumbers[y + 1];
-                            myNumbers[y + 1] = temp;
+                            int temp = myNumbers[y + 1];
+                            myNumbers[y + 1] = myNumbers[y];
+                            myNumbers[y] = temp;
 
                         }
                     }
@@ -208,5 +207,6 @@ namespace neutrino_interactions
             }
         }
     }
-    
 }
+  
+    

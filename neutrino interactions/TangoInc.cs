@@ -7,36 +7,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-// Joseph Akongo, Tango Inc, Sprint One
-// Date: 21/03/2022
+// Joseph Akongo, Rhys Withey,/ Tango Inc, Sprint One
+// Date: 04/04/2022
 // Version: 1
 // neutrino interactions
 // neutrino interations are saved as an integer stored in an array ina forms based GUI applicaion.
 // User input to search array, buttons to stort array, text bot to diplay array and any changes.
+// Features: Display, Sort, find, add, delete 
 
 
 namespace neutrino_interactions
 {
     public partial class TangoInc : Form
     {
+        //set the array including size, set sorted boolean
+
         public TangoInc()
         {
             InitializeComponent();
         }
         static int maxArraySize = 24;
         int[] myNumbers = new int[maxArraySize];
-        bool Sorted = true;
-        int key;
+        bool Sorted = false;
 
+        // Set the array values randomly (10-99) Random(); feature
         private void initiliseArray()
         {
             Random random = new Random();
             for (int x = 0; x < myNumbers.Length; x++)
             {
-                myNumbers[x] = random.Next(1, 100);
+                myNumbers[x] = random.Next(10, 100);
             }
         }
-
+        //Send the array calues to the listbox (Arraybox)
         private void displayArray()
         {
             Arraybox.Items.Clear();
@@ -55,18 +58,23 @@ namespace neutrino_interactions
         {
 
         }
-
+        // Use binary search to find users input. Display found or a error message
         private void findbutton_Click(object sender, EventArgs e)
         {
             int minNum = 0;
-            int maxNum = myNumbers.Length - 1;
-
+            int maxNum = myNumbers.Length;
+            int key = int.Parse(inputbox.Text);
+            // user sorts find chops list and seaches until found
             while (minNum <= maxNum)
             {
                 int mid = (minNum + maxNum) / 2;
                 if (key == myNumbers[mid])
                 {
-                     ++mid;
+                    inputbox.Clear();
+                    inputbox.Focus();
+                    MessageBox.Show("Found!", "Result",
+                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    break;
                 }
                 else if (key < myNumbers[mid])
                 {
@@ -77,22 +85,19 @@ namespace neutrino_interactions
                     minNum = mid + 1;
                 }
             }
+            //Check if not found and display message
             for (int x = 0; x < myNumbers.Length; x++)
             {
-                if (myNumbers[x] == int.Parse(inputbox.Text))
+                int mid = (minNum + maxNum) / 2;
+
+                if (key != myNumbers[mid])
                 {
-                    inputbox.Clear();
-                    inputbox.Focus();
-                    MessageBox.Show("Found!", "Result",
-                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Not Found ", "Error",
+                      MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
+
                 }
-                else
-                {
-                    MessageBox.Show("Enter a valid Int ", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    break;
-                }
+
 
             }
         }
@@ -102,9 +107,10 @@ namespace neutrino_interactions
         {
 
         }
-
+        // User delete's array item then can replace that iteam with input
         private void editbutton_Click(object sender, EventArgs e)
         {
+            // if the item is deleted (0) user can input new value
             if (!string.IsNullOrEmpty(inputbox.Text))
             {
                 for (int x = 0; x < myNumbers.Length; x++)
@@ -118,15 +124,16 @@ namespace neutrino_interactions
             }
             else
             {
-                MessageBox.Show("Please enter an Integer into the Text box", "Input Error Message",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Delete then enter a integer", "Input Error Message",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            displayArray();
             // input not empty
             // find element = 0
             // add item to that cell
             // display
         }
-
+        // initilise the array and display it tot he Arraybox (listbox)
         private void initilise_Click(object sender, EventArgs e)
         {
             initiliseArray();
@@ -136,9 +143,10 @@ namespace neutrino_interactions
         {
             displayArray();
         }
-
+        // user selects one array item then presses delete button to set it to 0 where they can add their own number or keep it at 0
         private void deletbutton_Click(object sender, EventArgs e)
         {
+            // selected item set value '0'
             if (Arraybox.SelectedIndex != -1)
             {
                 string currentItem = Arraybox.SelectedItem.ToString();
@@ -156,13 +164,13 @@ namespace neutrino_interactions
             }
             displayArray();
         }
-
+        // input box is the interactive box to find and add numbers with.
         private void inputbox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsNumber(e.KeyChar))
                 e.Handled = true;
         }
-
+        // key down / clears / delete fearture
         private void inputbox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Back)
@@ -171,9 +179,10 @@ namespace neutrino_interactions
                 inputbox.Focus();
             }
         }
-
+        // Select items in the list box (Arraybox)
         private void Arraybox_Click(object sender, EventArgs e)
         {
+            // Select number from array and assign that a value
             if (Arraybox.SelectedIndex != -1)
             {
                 string currentItem = Arraybox.SelectedItem.ToString();
@@ -186,10 +195,11 @@ namespace neutrino_interactions
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        // bubble sort items check if next number is bigger < and if so psuh it down the list until all are sorted.
         private void bubblesort_Click(object sender, EventArgs e)
         {
             {
+                // push larger numbers down list
                 for (int x = 0; x < myNumbers.Length - 1; x++)
                 {
                     for (int y = 0; y < myNumbers.Length - 1; y++)
@@ -206,7 +216,10 @@ namespace neutrino_interactions
                 displayArray();
             }
         }
+
+        private void Arraybox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
-  
-    

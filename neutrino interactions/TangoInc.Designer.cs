@@ -53,7 +53,7 @@
             // 
             this.inputbox.BackColor = System.Drawing.SystemColors.Window;
             this.inputbox.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.inputbox.Location = new System.Drawing.Point(167, 185);
+            this.inputbox.Location = new System.Drawing.Point(166, 196);
             this.inputbox.Name = "inputbox";
             this.inputbox.Size = new System.Drawing.Size(100, 20);
             this.inputbox.TabIndex = 2;

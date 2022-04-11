@@ -97,11 +97,8 @@ namespace neutrino_interactions
                     break;
 
                 }
-
-
             }
         }
-
 
         private void editbox_TextChanged(object sender, EventArgs e)
         {
